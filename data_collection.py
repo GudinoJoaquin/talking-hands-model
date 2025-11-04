@@ -8,7 +8,7 @@ import time
 # CONFIGURACIÓN PRINCIPAL
 # =======================
 DATA_PATH = "data"
-LABELS = ["hola", "adios", "gracias"]  # cambiá o agregá tus gestos
+LABELS = ["NN", "Q", "W", "X"]   # cambiá o agregá tus gestos
 SEQUENCE_LENGTH = 30        # frames por muestra
 SAMPLES_PER_LABEL = 100     # cuántas secuencias grabar por etiqueta
 DELAY_BETWEEN_SAMPLES = 0.5 # segundos de pausa entre muestras
@@ -19,7 +19,7 @@ DELAY_BETWEEN_SAMPLES = 0.5 # segundos de pausa entre muestras
 # OPCIÓN 1: usar la cámara DroidCam como fuente IP (recomendado)
 # EJEMPLO: "http://192.168.0.105:4747/video"
 # Revisá la IP que te muestra la app DroidCam
-CAMERA_SOURCE = "http://192.168.1.34:4747/video"  # o reemplazá por "http://<tu_ip>:4747/video"
+CAMERA_SOURCE = 0  # o reemplazá por "http://<tu_ip>:4747/video"
 
 # =======================
 # MEDIAPIPE CONFIG
@@ -66,7 +66,7 @@ def fix_green_frame(frame):
 def collect():
     ensure_dirs()
 
-    cap = cv2.VideoCapture(CAMERA_SOURCE)
+    cap = cv2.VideoCapture(CAMERA_SOURCE, cv2.CAP_DSHOW)
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -77,7 +77,7 @@ def collect():
 
     with mp_hands.Hands(
         static_image_mode=False,
-        max_num_hands=1,
+        max_num_hands=2,
         min_detection_confidence=0.6,
         min_tracking_confidence=0.5
     ) as hands:

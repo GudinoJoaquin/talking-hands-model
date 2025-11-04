@@ -31,9 +31,9 @@ def load_label_map(path):
 if __name__ == "__main__":
     model = load_model(MODEL_PATH)
     label_map = load_label_map(LABEL_MAP_PATH)
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     seq_buffer = []
-    with mp_hands.Hands(static_image_mode=False, max_num_hands=1, min_detection_confidence=0.6, min_tracking_confidence=0.5) as hands:
+    with mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.6, min_tracking_confidence=0.5) as hands:
         last_prediction = None
         last_time = 0
         while True:
